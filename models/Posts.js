@@ -6,6 +6,7 @@ const postSchema = new Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
     image: String,
+    likes: { type: Number, default: 0 },
     date: { type: Date, default: Date.now },
     author: { type: Schema.Types.ObjectId, ref: 'users', required: true },
 });
