@@ -6,8 +6,10 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+const passport = require('passport');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/authRoute');
+const contentRouter = require('./routes/contentRoute');
 
 require('dotenv').config();
 
@@ -19,6 +21,7 @@ mongoose.connection.on(
     'error',
     console.error.bind(console, 'mongo connection error')
 );
+require('./passport');
 
 const app = express();
 
@@ -31,6 +34,7 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/', authRouter);
+app.use('/', passport.authenticate('jwt', { session: false }), contentRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
