@@ -54,7 +54,8 @@ exports.createNewUser = [
                 lastName: req.body.lastName,
             });
             await newUser.save();
-            return res.json(newUser);
+            const token = jwt.sign({ id: newUser._id }, process.env.SECRET);
+            return res.json({ token });
         });
     },
 ];
