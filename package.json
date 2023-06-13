@@ -24,6 +24,7 @@
     "passport-jwt": "^4.0.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "eslint": "^8.41.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.8.0",
