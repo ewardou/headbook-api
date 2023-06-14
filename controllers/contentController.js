@@ -53,3 +53,18 @@ exports.acceptFriendRequest = async (req, res, next) => {
         next(e);
     }
 };
+
+exports.declineFriendRequest = async (req, res, next) => {
+    try {
+        const [user1, user2] = await Promise.all([
+            Users.findById(req.user._id),
+            Users.findById(req.body.id),
+        ]);
+        deleteRequestFromArray(user1, user2);
+        deleteRequestFromArray(user2, user1);
+        await Promise.all([user1.save(), user2.save()]);
+        res.json('Request declined');
+    } catch (e) {
+        next(e);
+    }
+};
