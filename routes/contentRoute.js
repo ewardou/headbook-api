@@ -7,5 +7,6 @@ router.get('/people', contentController.getPeople);
 router.post('/request', contentController.sendRequest);
 router.post('/accept-request', contentController.acceptFriendRequest);
 router.post('/decline-request', contentController.declineFriendRequest);
+router.get('/my-profile', contentController.getMyInformation);
 
 module.exports = router;

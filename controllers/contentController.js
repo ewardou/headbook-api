@@ -68,3 +68,7 @@ exports.declineFriendRequest = async (req, res, next) => {
         next(e);
     }
 };
+
+exports.getMyInformation = async (req, res) => {
+    res.json(req.user);
+};
