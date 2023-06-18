@@ -12,12 +12,18 @@ exports.getPeople = async (req, res, next) => {
     }
 };
 
+function deleteRequestFromArray(user1, user2) {
+    if (JSON.stringify(user1.requests).includes(JSON.stringify(user2._id))) {
+        const index = user1.requests.indexOf(user2._id);
+        user1.requests.splice(index, 1);
+        return true;
+    }
+    return false;
+}
+
 exports.sendRequest = async (req, res, next) => {
     try {
         const user = await Users.findById(req.body.id);
-        if (!user.requests) {
-            user.requests = [];
-        }
         if (!deleteRequestFromArray(user, req.user)) {
             user.requests.push(req.user._id);
         }
@@ -27,15 +33,6 @@ exports.sendRequest = async (req, res, next) => {
         next(e);
     }
 };
-
-function deleteRequestFromArray(user1, user2) {
-    if (JSON.stringify(user1.requests).includes(JSON.stringify(user2._id))) {
-        const index = user1.requests.indexOf(user2._id);
-        user1.requests.splice(index, 1);
-        return true;
-    }
-    return false;
-}
 
 exports.acceptFriendRequest = async (req, res, next) => {
     try {
