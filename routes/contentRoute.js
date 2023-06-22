@@ -10,5 +10,7 @@ router.post('/decline-request', contentController.declineFriendRequest);
 router.get('/my-profile', contentController.getMyInformation);
 
 router.post('/new-post', contentController.createNewPost);
+router.put('/dislike-post', contentController.dislikePost);
+router.put('/like-post', contentController.likePost);
 
 module.exports = router;

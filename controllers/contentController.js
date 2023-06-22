@@ -93,3 +93,33 @@ exports.createNewPost = [
         }
     },
 ];
+
+exports.likePost = async (req, res, next) => {
+    try {
+        const [post, user] = await Promise.all([
+            Posts.findById(req.body.postID),
+            Users.findById(req.user._id),
+        ]);
+        post.likes += 1;
+        user.likes.push(post._id);
+        await Promise.all([post.save(), user.save()]);
+        res.json({ post, userLikes: user.likes });
+    } catch (e) {
+        next(e);
+    }
+};
+
+exports.dislikePost = async (req, res, next) => {
+    try {
+        const [post, user] = await Promise.all([
+            Posts.findById(req.body.postID),
+            Users.findById(req.user._id),
+        ]);
+        post.likes -= 1;
+        user.likes.splice(user.likes.indexOf(post._id), 1);
+        await Promise.all([post.save(), user.save()]);
+        res.json({ post, userLikes: user.likes });
+    } catch (e) {
+        next(e);
+    }
+};
