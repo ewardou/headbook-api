@@ -9,4 +9,6 @@ router.post('/accept-request', contentController.acceptFriendRequest);
 router.post('/decline-request', contentController.declineFriendRequest);
 router.get('/my-profile', contentController.getMyInformation);
 
+router.post('/new-post', contentController.createNewPost);
+
 module.exports = router;

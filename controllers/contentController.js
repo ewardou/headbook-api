@@ -1,4 +1,6 @@
+const { body, validationResult } = require('express-validator');
 const Users = require('../models/Users');
+const Posts = require('../models/Posts');
 
 exports.getPeople = async (req, res, next) => {
     try {
@@ -69,3 +71,25 @@ exports.declineFriendRequest = async (req, res, next) => {
 exports.getMyInformation = async (req, res) => {
     res.json(req.user);
 };
+
+exports.createNewPost = [
+    body('content').trim().notEmpty().withMessage('Content is empty').escape(),
+    async (req, res, next) => {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(401).json({
+                    errors: errors.array(),
+                });
+            }
+            const newPost = new Posts({
+                content: req.body.content,
+                author: req.user._id,
+            });
+            await newPost.save();
+            return res.json(newPost);
+        } catch (e) {
+            next(e);
+        }
+    },
+];
