@@ -123,3 +123,16 @@ exports.dislikePost = async (req, res, next) => {
         next(e);
     }
 };
+
+exports.getPosts = async (req, res, next) => {
+    try {
+        const allPosts = await Posts.find().populate('author');
+        const users = [req.user._id, ...req.user.friends];
+        const filteredPosts = allPosts.filter((post) =>
+            JSON.stringify(users).includes(JSON.stringify(post.author._id))
+        );
+        res.json(filteredPosts);
+    } catch (e) {
+        next(e);
+    }
+};
