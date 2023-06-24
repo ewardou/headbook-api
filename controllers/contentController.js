@@ -154,3 +154,14 @@ exports.createComment = [
         }
     },
 ];
+
+exports.getComments = async (req, res, next) => {
+    try {
+        const allComments = await Comments.find({
+            post: req.params.postID,
+        }).populate('author');
+        res.json(allComments);
+    } catch (e) {
+        next(e);
+    }
+};
