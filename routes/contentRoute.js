@@ -14,4 +14,6 @@ router.post('/new-post', contentController.createNewPost);
 router.put('/dislike-post', contentController.dislikePost);
 router.put('/like-post', contentController.likePost);
 
+router.post('/posts/:postID/comments', contentController.createComment);
+
 module.exports = router;

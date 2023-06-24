@@ -1,6 +1,7 @@
 const { body, validationResult } = require('express-validator');
 const Users = require('../models/Users');
 const Posts = require('../models/Posts');
+const Comments = require('../models/Comments');
 
 exports.getPeople = async (req, res, next) => {
     try {
@@ -136,3 +137,20 @@ exports.getPosts = async (req, res, next) => {
         next(e);
     }
 };
+
+exports.createComment = [
+    body('content').trim().notEmpty().withMessage('Content is empty').escape(),
+    async (req, res, next) => {
+        try {
+            const newComment = new Comments({
+                author: req.user._id,
+                content: req.body.content,
+                post: req.params.postID,
+            });
+            await newComment.save();
+            res.json(newComment);
+        } catch (e) {
+            next(e);
+        }
+    },
+];
