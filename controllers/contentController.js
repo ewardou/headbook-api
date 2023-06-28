@@ -169,7 +169,7 @@ exports.getComments = async (req, res, next) => {
 exports.getUserInformation = async (req, res, next) => {
     try {
         const [userPosts, user] = await Promise.all([
-            Posts.find({ author: req.params.userID }),
+            Posts.find({ author: req.params.userID }).populate('author'),
             Users.findById(req.params.userID).populate('friends'),
         ]);
         res.json({ userPosts, user });
