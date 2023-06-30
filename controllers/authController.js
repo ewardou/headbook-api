@@ -1,7 +1,16 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
+const ImageKit = require('imagekit');
 const Users = require('../models/Users');
+
+require('dotenv').config();
+
+const imagekit = new ImageKit({
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
+});
 
 exports.createNewUser = [
     body('firstName')
@@ -75,4 +84,9 @@ exports.login = async (req, res, next) => {
         }
         return res.status(401).json({ msg: 'Wrong password' });
     });
+};
+
+exports.getUploadAuth = (req, res) => {
+    const result = imagekit.getAuthenticationParameters();
+    res.json(result);
 };
