@@ -11,6 +11,7 @@ const userSchema = new Schema({
             'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg',
     },
     likes: [{ type: Schema.Types.ObjectId, ref: 'posts' }],
+    aboutMe: { type: String, default: ' ' },
     email: { type: String, required: true },
     password: { type: String, required: true, minLength: 8 },
     friends: [{ type: Schema.Types.ObjectId, ref: 'users' }],
