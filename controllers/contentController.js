@@ -177,3 +177,15 @@ exports.getUserInformation = async (req, res, next) => {
         next(e);
     }
 };
+
+exports.updateProfile = async (req, res, next) => {
+    try {
+        const user = await Users.findById(req.user._id);
+        user.profilePicture = req.body.newProfilePicture;
+        user.aboutMe = req.body.newAboutMe;
+        user.save();
+        res.status(200);
+    } catch (e) {
+        next(e);
+    }
+};

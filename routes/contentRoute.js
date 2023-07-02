@@ -18,5 +18,6 @@ router.post('/posts/:postID/comments', contentController.createComment);
 router.get('/posts/:postID/comments', contentController.getComments);
 
 router.get('/profiles/:userID', contentController.getUserInformation);
+router.put('/update-profile', contentController.updateProfile);
 
 module.exports = router;
