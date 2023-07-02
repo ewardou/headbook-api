@@ -184,7 +184,7 @@ exports.updateProfile = async (req, res, next) => {
         user.profilePicture = req.body.newProfilePicture;
         user.aboutMe = req.body.newAboutMe;
         user.save();
-        res.status(200);
+        res.json(user);
     } catch (e) {
         next(e);
     }
