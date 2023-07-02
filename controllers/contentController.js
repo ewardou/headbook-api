@@ -181,7 +181,9 @@ exports.getUserInformation = async (req, res, next) => {
 exports.updateProfile = async (req, res, next) => {
     try {
         const user = await Users.findById(req.user._id);
-        user.profilePicture = req.body.newProfilePicture;
+        if (req.body.newProfilePicture) {
+            user.profilePicture = req.body.newProfilePicture;
+        }
         user.aboutMe = req.body.newAboutMe;
         user.save();
         res.json(user);
