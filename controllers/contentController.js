@@ -87,6 +87,7 @@ exports.createNewPost = [
                 content: req.body.content,
                 author: req.user._id,
             });
+            if (req.body.image) newPost.image = req.body.image;
             await newPost.save();
             return res.json(newPost);
         } catch (e) {
