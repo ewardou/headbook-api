@@ -192,3 +192,15 @@ exports.updateProfile = async (req, res, next) => {
         next(e);
     }
 };
+
+exports.deletePost = async (req, res, next) => {
+    try {
+        await Promise.all([
+            Posts.findByIdAndRemove(req.params.postID),
+            Comments.deleteMany({ post: req.params.postID }),
+        ]);
+        res.json('Post deleted');
+    } catch (e) {
+        next(e);
+    }
+};

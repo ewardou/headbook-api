@@ -20,4 +20,6 @@ router.get('/posts/:postID/comments', contentController.getComments);
 router.get('/profiles/:userID', contentController.getUserInformation);
 router.put('/update-profile', contentController.updateProfile);
 
+router.delete('/posts/:postID', contentController.deletePost);
+
 module.exports = router;
