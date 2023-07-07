@@ -1,1 +1,3 @@
-A facebook clone. Work in progress.
+API for my headbook app, a facebook clone. It was made with Express.js. The information is stored in a MongoDB database and is defined with three models: Users, Posts, and Comments. Authentication was implemented with the passport.js package and it uses the JWT strategy. Most of the routes are protected, so if an user wants to interact with the API to create new entries or do other actions it must have an authentication token. 
+
+Front-end app repo: https://github.com/ewardou/headbook
